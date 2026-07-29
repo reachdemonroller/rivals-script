@@ -2,16 +2,18 @@ if game.PlaceId ~= 17265691026 and game.GameId ~= 6010086202 then
     return 
 end
 
-local Venyx = loadstring(game:HttpGet("https://raw.githubusercontent.com/Stefanuk12/Venyx-UI-Library/main/source.lua"))()
-local UI = Venyx.new("Unnamed Enhancements | Rivals")
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu'))()
+local Window = Rayfield:CreateWindow({
+   Name = "Unnamed Enhancements | Rivals",
+   LoadingTitle = "kicia copy v3",
+   LoadingSubtitle = "by ClosetTech",
+   ConfigurationSaving = { Enabled = false },
+   KeySystem = false
+})
 
-local CombatTab = UI:addPage("Combat", "rbxassetid://4483345998")
-local VisualsTab = UI:addPage("Visuals", "rbxassetid://4483345998")
-local SettingsTab = UI:addPage("Settings", "rbxassetid://4483345998")
-
-local CombatSection = CombatTab:addSection("Main Rules")
-local VisualsSection = VisualsTab:addSection("Rendering Engines")
-local SettingsSection = SettingsTab:addSection("Performance Systems")
+local CombatTab = Window:CreateTab("Combat", 4483345998)
+local VisualsTab = Window:CreateTab("Visuals", 4483345998)
+local SettingsTab = Window:CreateTab("Settings", 4483345998)
 
 local AimbotEnabled = true
 local SilentAimEnabled = false
@@ -30,69 +32,107 @@ local EspWeaponEnabled = false
 local EspRankEnabled = false
 local DeflectKatanaEnabled = false
 
-CombatSection:addToggle("Right-Click Smooth Aimbot", true, function(Value)
-    AimbotEnabled = Value
-end)
+CombatTab:CreateToggle({
+   Name = "Right-Click Smooth Aimbot",
+   CurrentValue = true,
+   Callback = function(Value) AimbotEnabled = Value end,
+})
 
-CombatSection:addSlider("Aimbot Hit Chance (%)", 100, 0, 100, function(Value)
-    AimbotHitChance = Value
-end)
+CombatTab:CreateSlider({
+   Name = "Aimbot Hit Chance (%)",
+   Min = 0,
+   Max = 100,
+   CurrentValue = 100,
+   Increment = 1,
+   Callback = function(Value) AimbotHitChance = Value end,
+})
 
-CombatSection:addToggle("Silent Aim [Toggle: Q]", false, function(Value)
-    SilentAimEnabled = Value
-end)
+CombatTab:CreateToggle({
+   Name = "Silent Aim [Toggle: Q]",
+   CurrentValue = false,
+   Callback = function(Value) SilentAimEnabled = Value end,
+})
 
-CombatSection:addSlider("Silent Aim Hit Chance (%)", 100, 0, 100, function(Value)
-    SilentAimHitChance = Value
-end)
+CombatTab:CreateSlider({
+   Name = "Silent Aim Hit Chance (%)",
+   Min = 0,
+   Max = 100,
+   CurrentValue = 100,
+   Increment = 1,
+   Callback = function(Value) SilentAimHitChance = Value end,
+})
 
-CombatSection:addSlider("Headshot Distribution (%)", 40, 0, 100, function(Value)
-    HeadShotChance = Value
-end)
+CombatTab:CreateSlider({
+   Name = "Headshot Distribution (%)",
+   Min = 0,
+   Max = 100,
+   CurrentValue = 40,
+   Increment = 1,
+   Callback = function(Value) HeadShotChance = Value end,
+})
 
-CombatSection:addSlider("Aimbot Smoothness Delay", 4, 1, 10, function(Value)
-    Smoothness = Value
-end)
+CombatTab:CreateSlider({
+   Name = "Aimbot Smoothness Delay",
+   Min = 1,
+   Max = 10,
+   CurrentValue = 4,
+   Increment = 1,
+   Callback = function(Value) Smoothness = Value end,
+})
 
-CombatSection:addToggle("Auto Deflect Katana Projectiles", false, function(Value)
-    DeflectKatanaEnabled = Value
-end)
+CombatTab:CreateToggle({
+   Name = "Auto Deflect Katana Projectiles",
+   CurrentValue = false,
+   Callback = function(Value) DeflectKatanaEnabled = Value end,
+})
 
-VisualsSection:addToggle("Box ESP", false, function(Value)
-    EspBoxesEnabled = Value
-end)
+VisualsTab:CreateToggle({
+   Name = "Box ESP",
+   CurrentValue = false,
+   Callback = function(Value) EspBoxesEnabled = Value end,
+})
 
-VisualsSection:addToggle("Show Held Weapons", false, function(Value)
-    EspWeaponEnabled = Value
-end)
+VisualsTab:CreateToggle({
+   Name = "Show Held Weapons",
+   CurrentValue = false,
+   Callback = function(Value) EspWeaponEnabled = Value end,
+})
 
-VisualsSection:addToggle("Show Ranks", false, function(Value)
-    EspRankEnabled = Value
-end)
+VisualsTab:CreateToggle({
+   Name = "Show Ranks",
+   CurrentValue = false,
+   Callback = function(Value) EspRankEnabled = Value end,
+})
 
-VisualsSection:addToggle("Anti-Flashbang Bypass", true, function(Value)
-    AntiFlashbangEnabled = Value
-end)
+VisualsTab:CreateToggle({
+   Name = "Anti-Flashbang Bypass",
+   CurrentValue = true,
+   Callback = function(Value) AntiFlashbangEnabled = Value end,
+})
 
-VisualsSection:addToggle("Remove Muzzle Flashes", false, function(Value)
-    RemoveMuzzleEffects = Value
-end)
+VisualsTab:CreateToggle({
+   Name = "Remove Muzzle Flashes",
+   CurrentValue = false,
+   Callback = function(Value) RemoveMuzzleEffects = Value end,
+})
 
-VisualsSection:addToggle("See-Through Smoke Tweaks", false, function(Value)
-    OptimizeSmokeVisibility = Value
-end)
+VisualsTab:CreateToggle({
+   Name = "See-Through Smoke Tweaks",
+   CurrentValue = false,
+   Callback = function(Value) OptimizeSmokeVisibility = Value end,
+})
 
-SettingsSection:addToggle("Team Check", true, function(Value)
-    TeamCheckEnabled = Value
-end)
+SettingsTab:CreateToggle({
+   Name = "Team Check",
+   CurrentValue = true,
+   Callback = function(Value) TeamCheckEnabled = Value end,
+})
 
-SettingsSection:addToggle("Aggressive FPS Boost", true, function(Value)
-    FpsOptimizationEnabled = Value
-end)
-
-SettingsSection:addKeybind("Minimize Menu Keybind", Enum.KeyCode.RightShift, function()
-    UI:toggle()
-end)
+SettingsTab:CreateToggle({
+   Name = "Aggressive FPS Boost",
+   CurrentValue = true,
+   Callback = function(Value) FpsOptimizationEnabled = Value end,
+})
 
 local Camera = workspace.CurrentCamera
 local Players = game:GetService("Players")
@@ -109,20 +149,17 @@ local ActiveEspObjects = {}
 
 local function CreateEspContainer(Player)
     if ActiveEspObjects[Player] then return end
-    
     local Box = Drawing.new("Square")
     Box.Visible = false
     Box.Color = Color3.fromRGB(0, 242, 254)
     Box.Thickness = 1
     Box.Filled = false
-    
     local TextLabel = Drawing.new("Text")
     TextLabel.Visible = false
     TextLabel.Color = Color3.fromRGB(255, 255, 255)
     TextLabel.Size = 13
     TextLabel.Center = true
     TextLabel.Outline = true
-    
     ActiveEspObjects[Player] = {Box = Box, TextLabel = TextLabel}
 end
 
@@ -155,7 +192,6 @@ local function ProcessEspVisuals()
     for Player, Objects in pairs(ActiveEspObjects) do
         local Box = Objects.Box
         local TextLabel = Objects.TextLabel
-        
         if Player and Player.Parent and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character:FindFirstChildOfClass("Humanoid") and Player.Character:FindFirstChildOfClass("Humanoid").Health > 0 then
             if TeamCheckEnabled and Player.Team == LocalPlayer.Team then
                 Box.Visible = false
@@ -163,11 +199,9 @@ local function ProcessEspVisuals()
             else
                 local RootPart = Player.Character.HumanoidRootPart
                 local Position, OnScreen = Camera:WorldToViewportPoint(RootPart.Position)
-                
                 if OnScreen then
                     local SizeY = (Camera:WorldToViewportPoint(RootPart.Position + Vector3.new(0, 3, 0)).Y - Camera:WorldToViewportPoint(RootPart.Position - Vector3.new(0, 3, 0)).Y)
                     local SizeX = SizeY * 0.6
-                    
                     if EspBoxesEnabled then
                         Box.Size = Vector2.new(math.abs(SizeX), math.abs(SizeY))
                         Box.Position = Vector2.new(Position.X - math.abs(SizeX) / 2, Position.Y - math.abs(SizeY) / 2)
@@ -175,15 +209,9 @@ local function ProcessEspVisuals()
                     else
                         Box.Visible = false
                     end
-                    
                     local DisplayString = ""
-                    if EspRankEnabled then
-                        DisplayString = DisplayString .. "[" .. GetPlayerRank(Player) .. "] "
-                    end
-                    if EspWeaponEnabled then
-                        DisplayString = DisplayString .. "Weapon: " .. GetPlayerHeldWeapon(Player)
-                    end
-                    
+                    if EspRankEnabled then DisplayString = DisplayString .. "[" .. GetPlayerRank(Player) .. "] " end
+                    if EspWeaponEnabled then DisplayString = DisplayString .. "Weapon: " .. GetPlayerHeldWeapon(Player) end
                     if DisplayString ~= "" then
                         TextLabel.Text = DisplayString
                         TextLabel.Position = Vector2.new(Position.X, Position.Y + (math.abs(SizeY) / 2) + 5)
@@ -224,16 +252,10 @@ end
 
 local function HandleEnvironmentVisuals(Item)
     if RemoveMuzzleEffects and (string.find(string.lower(Item.Name), "muzzle") or string.find(string.lower(Item.Name), "flash")) then
-        if Item:IsA("ParticleEmitter") or Item:IsA("Light") then
-            Item.Enabled = false
-        end
+        if Item:IsA("ParticleEmitter") or Item:IsA("Light") then Item.Enabled = false end
     end
     if OptimizeSmokeVisibility and (string.find(string.lower(Item.Name), "smoke") or string.find(string.lower(Item.Name), "gas")) then
-        if Item:IsA("ParticleEmitter") or Item:IsA("Smoke") then
-            Item.Enabled = false
-        elseif Item:IsA("BasePart") then
-            Item.Transparency = 1
-        end
+        if Item:IsA("ParticleEmitter") or Item:IsA("Smoke") then Item.Enabled = false elseif Item:IsA("BasePart") then Item.Transparency = 1 end
     end
 end
 
@@ -245,11 +267,7 @@ local function GetTargetPart(TargetCharacter)
     else
         local SelectedPartName = BodyParts[math.random(1, #BodyParts)]
         local TargetPart = TargetCharacter:FindFirstChild(SelectedPartName)
-        if TargetPart then
-            return TargetPart
-        else
-            return TargetCharacter:FindFirstChild("HumanoidRootPart") or TargetCharacter:FindFirstChild("Torso")
-        end
+        if TargetPart then return TargetPart else return TargetCharacter:FindFirstChild("HumanoidRootPart") or TargetCharacter:FindFirstChild("Torso") end
     end
 end
 
@@ -258,12 +276,7 @@ local function GetClosestPlayerToCrosshair()
     local ShortestDistance = MaxFOVDistance 
     local MousePos = UserInputService:GetMouseLocation()
     local CurrentPlayers = Players:GetPlayers()
-
     for i = 1, #CurrentPlayers do
         local Player = CurrentPlayers[i]
         if Player ~= LocalPlayer and Player.Character then
             if not TeamCheckEnabled or Player.Team ~= LocalPlayer.Team then
-                local Humanoid = Player.Character:FindFirstChildOfClass("Humanoid")
-                if Humanoid and Humanoid.Health > 0 then
-                    local RootPart = Player.Character:FindFirstChild("HumanoidRootPart")
-                    if RootPart then
