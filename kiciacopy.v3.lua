@@ -2,7 +2,7 @@ if game.PlaceId ~= 17265691026 and game.GameId ~= 6010086202 then
     return 
 end
 
-local Venyx = loadstring(game:HttpGet("https://githubusercontent.com"))()
+local Venyx = loadstring(game:HttpGet("https://raw.githubusercontent.com/Stefanuk12/Venyx-UI-Library/main/source.lua"))()
 local UI = Venyx.new("Unnamed Enhancements | Rivals")
 
 local CombatTab = UI:addPage("Combat", "rbxassetid://4483345998")
@@ -29,13 +29,6 @@ local EspBoxesEnabled = false
 local EspWeaponEnabled = false
 local EspRankEnabled = false
 local DeflectKatanaEnabled = false
-
-local Camera = workspace.CurrentCamera
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local UserInputService = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
-local Lighting = game:GetService("Lighting")
 
 CombatSection:addToggle("Right-Click Smooth Aimbot", true, function(Value)
     AimbotEnabled = Value
@@ -100,6 +93,13 @@ end)
 SettingsSection:addKeybind("Minimize Menu Keybind", Enum.KeyCode.RightShift, function()
     UI:toggle()
 end)
+
+local Camera = workspace.CurrentCamera
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local Lighting = game:GetService("Lighting")
 
 local BodyParts = {"HumanoidRootPart", "UpperTorso", "LowerTorso"}
 local CurrentAimbotTarget = nil
