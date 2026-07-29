@@ -1,8 +1,8 @@
-if game.PlaceId ~= 17265691026 and game.GameId ~= 6010086202 then 
+if game.PlaceId ~= 17625359962 then 
     return 
 end
 
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu'))()
+local Rayfield = loadstring(game:HttpGet('https://githubusercontent.com'))()
 local Window = Rayfield:CreateWindow({
    Name = "Unnamed Enhancements | Rivals",
    LoadingTitle = "kicia copy v3",
@@ -242,7 +242,7 @@ local function MonitorProjectiles()
                 if Distance < 15 and LocalPlayer.Character:FindFirstChild("Katana") then
                     local VirtualInputManager = game:GetService("VirtualInputManager")
                     VirtualInputManager:SendMouseButtonEvent(0, 0, 0, true, game, 0)
-                    task.wait()
+                    task.wait(0.05)
                     VirtualInputManager:SendMouseButtonEvent(0, 0, 0, false, game, 0)
                 end
             end
@@ -250,33 +250,13 @@ local function MonitorProjectiles()
     end
 end
 
-local function HandleEnvironmentVisuals(Item)
-    if RemoveMuzzleEffects and (string.find(string.lower(Item.Name), "muzzle") or string.find(string.lower(Item.Name), "flash")) then
-        if Item:IsA("ParticleEmitter") or Item:IsA("Light") then Item.Enabled = false end
-    end
-    if OptimizeSmokeVisibility and (string.find(string.lower(Item.Name), "smoke") or string.find(string.lower(Item.Name), "gas")) then
-        if Item:IsA("ParticleEmitter") or Item:IsA("Smoke") then Item.Enabled = false elseif Item:IsA("BasePart") then Item.Transparency = 1 end
-    end
+RunService.RenderStepped:Connect(function()
+    ProcessEspVisuals()
+    MonitorProjectiles()
+end)
+
+for _, player in ipairs(Players:GetPlayers()) do
+    if player ~= LocalPlayer then CreateEspContainer(player) end
 end
-
-workspace.DescendantAdded:Connect(HandleEnvironmentVisuals)
-
-local function GetTargetPart(TargetCharacter)
-    if math.random(1, 100) <= HeadShotChance then
-        return TargetCharacter:FindFirstChild("Head")
-    else
-        local SelectedPartName = BodyParts[math.random(1, #BodyParts)]
-        local TargetPart = TargetCharacter:FindFirstChild(SelectedPartName)
-        if TargetPart then return TargetPart else return TargetCharacter:FindFirstChild("HumanoidRootPart") or TargetCharacter:FindFirstChild("Torso") end
-    end
-end
-
-local function GetClosestPlayerToCrosshair()
-    local ClosestTarget = nil
-    local ShortestDistance = MaxFOVDistance 
-    local MousePos = UserInputService:GetMouseLocation()
-    local CurrentPlayers = Players:GetPlayers()
-    for i = 1, #CurrentPlayers do
-        local Player = CurrentPlayers[i]
-        if Player ~= LocalPlayer and Player.Character then
-            if not TeamCheckEnabled or Player.Team ~= LocalPlayer.Team then
+Players.PlayerAdded:Connect(CreateEspContainer)
+Players.PlayerRemoving:Connect(RemoveEspContainer)
